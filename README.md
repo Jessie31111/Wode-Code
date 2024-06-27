@@ -1,27 +1,45 @@
 # Wode-Code
 
 import pandas as pd
-import matplotlib.pyplot as plt
 
-# Create a copy of the original DataFrame
-df_analysis = df.copy()
+# Group the data by the factor level (e.g., 'Final Adjustment')
+grouped = df_t1.groupby('Final Adjustment')
 
-# Group by 'Final Adjustment' and calculate the average return for each group
-final_adjustment_group = df_analysis.groupby('Final Adjustment')['return_t1'].mean()
+# Percentage of stocks with reversion in each bucket
+percentage_reversion = grouped['T1_label'].mean() * 100
 
-# Plot the average returns for each 'Final Adjustment' group
-final_adjustment_group.plot(kind='bar', figsize=(8, 6))
-plt.xlabel('Final Adjustment')
-plt.ylabel('Average Return')
-plt.title('Average Return by Final Adjustment')
-plt.show()
+# Weighted average of stocks with reversion in each bucket
+weighted_avg_reversion = grouped['T1_label'].mean() * grouped['Total USD Flow'].sum()
+unweighted_avg_reversion = grouped['T1_label'].mean()
 
-# Group by 'Sector' and calculate the average return for each group
-sector_group = df_analysis.groupby('Sector')['return_t1'].mean()
+# Weighted average of all stocks without reversion
+non_reversion_mask = df_t1['T1_label'] == 0
+weighted_avg_non_reversion = (df_t1.loc[non_reversion_mask, 'Total USD Flow'] * df_t1.loc[non_reversion_mask, 'T1_label']).sum() / df_t1.loc[non_reversion_mask, 'Total USD Flow'].sum()
+unweighted_avg_non_reversion = df_t1.loc[non_reversion_mask, 'T1_label'].mean()
 
-# Plot the average returns for each 'Sector' group
-sector_group.plot(kind='bar', figsize=(8, 6))
-plt.xlabel('Sector')
-plt.ylabel('Average Return')
-plt.title('Average Return by Sector')
-plt.show()
+# Interaction between the buckets
+bucket_interaction = grouped[['T1_label', 'Total USD Flow']].sum()
+
+# Display the results
+print("Percentage of stocks with reversion in each bucket:")
+print(percentage_reversion)
+print()
+
+print("Weighted average of stocks with reversion in each bucket:")
+print(weighted_avg_reversion)
+print()
+
+print("Unweighted average of stocks with reversion in each bucket:")
+print(unweighted_avg_reversion)
+print()
+
+print("Weighted average of all stocks without reversion:")
+print(weighted_avg_non_reversion)
+print()
+
+print("Unweighted average of all stocks without reversion:")
+print(unweighted_avg_non_reversion)
+print()
+
+print("Interaction between the buckets:")
+print(bucket_interaction)
