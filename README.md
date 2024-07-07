@@ -1,36 +1,33 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
 
 # 读取数据框
 df = pd.read_csv('your_dataframe.csv')  # 替换为你的数据框文件路径
 
-# 绘制dot plot
-plt.scatter(df['DTC'], df['T1 level'])
-plt.xlabel('DTC')
-plt.ylabel('T1 level')
-plt.title('Dot Plot')
-
-# 执行回归分析
-X = df[['DTC']]
+# 提取自变量和因变量
+X = df[['DTC', 'Market Cap', 'Notional']]
 y = df['T1 level']
 
-model = LinearRegression()  # 创建线性回归模型
-model.fit(X, y)  # 拟合模型
+# 创建交互特征
+poly = PolynomialFeatures(degree=2, interaction_only=True, include_bias=False)
+X_poly = poly.fit_transform(X)
+
+# 执行多变量交互回归分析
+model = LinearRegression()
+model.fit(X_poly, y)
 
 # 提取回归结果
 intercept = model.intercept_
-slope = model.coef_[0]
-r_squared = model.score(X, y)
+coefficients = model.coef_
+r_squared = model.score(X_poly, y)
 
 print("Intercept:", intercept)
-print("Slope:", slope)
+print("Coefficients:", coefficients)
 print("R-squared:", r_squared)
 
-# 绘制回归线
-plt.plot(X, model.predict(X), color='red', linewidth=2)
-
-# 显示图形
+# 显示图形（省略交互作用图形的绘制）
 plt.show()
 
 
