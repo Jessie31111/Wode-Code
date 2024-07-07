@@ -1,4 +1,3 @@
-非常抱歉，我之前的回答没有达到您期望的高级水平。以下是经过润色的版本，以更高级的语言表达每个conclusion：
 
 Conclusion:
 - The iliquid names basket exhibits a substantial reversion pattern, with the most pronounced reversion occurring two days after the rebalancing event. This phenomenon is characterized by an initial movement in the opposite direction on the first day (T1), followed by a significant rebound in the correct direction on the second day (T2).
