@@ -1,3 +1,40 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+
+# 读取数据框
+df = pd.read_csv('your_dataframe.csv')  # 替换为你的数据框文件路径
+
+# 绘制dot plot
+plt.scatter(df['DTC'], df['T1 level'])
+plt.xlabel('DTC')
+plt.ylabel('T1 level')
+plt.title('Dot Plot')
+
+# 执行回归分析
+X = df[['DTC']]
+y = df['T1 level']
+
+model = LinearRegression()  # 创建线性回归模型
+model.fit(X, y)  # 拟合模型
+
+# 提取回归结果
+intercept = model.intercept_
+slope = model.coef_[0]
+r_squared = model.score(X, y)
+
+print("Intercept:", intercept)
+print("Slope:", slope)
+print("R-squared:", r_squared)
+
+# 绘制回归线
+plt.plot(X, model.predict(X), color='red', linewidth=2)
+
+# 显示图形
+plt.show()
+
+
+
 
 Conclusion:
 - The iliquid names basket exhibits a substantial reversion pattern, with the most pronounced reversion occurring two days after the rebalancing event. This phenomenon is characterized by an initial movement in the opposite direction on the first day (T1), followed by a significant rebound in the correct direction on the second day (T2).
