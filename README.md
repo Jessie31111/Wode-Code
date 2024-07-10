@@ -1,52 +1,17 @@
-import matplotlib.pyplot as plt
-import pandas as pd
-from sklearn.linear_model import LinearRegression
-from sklearn.preprocessing import PolynomialFeatures
+for region in df['REGION OF LISTING'].unique():
+    plt.figure(figsize=(20, 10))
+    plt.suptitle(region)
+    df_region = df[df['REGION OF LISTING'] == region]
+    for i, col in enumerate(['T1_level', 'T2_level', 'T5_level', 'T10_level', 'T30_level']):
+        plt.subplot(2, 3, i + 1)
+        plt.boxplot(df_region[col])
+        plt.title(col)
+    plt.show()
 
-# 读取数据框
-df = pd.read_csv('your_dataframe.csv')  # 替换为你的数据框文件路径
-
-# 提取自变量和因变量
-X = df[['DTC', 'Market Cap', 'Notional']]
-y = df['T1 level']
-
-# 创建交互特征
-poly = PolynomialFeatures(degree=2, interaction_only=True, include_bias=False)
-X_poly = poly.fit_transform(X)
-
-# 执行多变量交互回归分析
-model = LinearRegression()
-model.fit(X_poly, y)
-
-# 提取回归结果
-intercept = model.intercept_
-coefficients = model.coef_
-r_squared = model.score(X_poly, y)
-
-print("Intercept:", intercept)
-print("Coefficients:", coefficients)
-print("R-squared:", r_squared)
-
-# 显示图形（省略交互作用图形的绘制）
-plt.show()
-
-
-
-
-Conclusion:
-- The iliquid names basket exhibits a substantial reversion pattern, with the most pronounced reversion occurring two days after the rebalancing event. This phenomenon is characterized by an initial movement in the opposite direction on the first day (T1), followed by a significant rebound in the correct direction on the second day (T2).
-- The factors contributing to the observed reversion vary across different days. However, key determinants include the direction of index adjustment, MSCI country classification, Days to Cover (DTC), notional value, and market capitalization. These factors play a crucial role in influencing the magnitude and direction of the reversion, while the price movement prior to rebalancing has limited impact on the overall reversion dynamics.
-
-Conclusion:
-- The behavior of specific name categories within the iliquid names basket provides valuable insights into the reversion phenomenon. Notably, the names experiencing outflows demonstrate the earliest and most significant reversion, indicating a swift correction towards the prevailing trend. Additionally, both the outflow and delete names exhibit prolonged reversion periods, lasting approximately ten days based on different weighted methods. On the other hand, promotion names exhibit a remarkable tendency for sustained positive movement, displaying the largest rightway movement without any significant reversion across all analyzed time periods.
-
-Conclusion:
-- The reversion patterns observed across different regions can be categorized into three distinct types. Firstly, countries such as India, Korea, and Malaysia display an early, short-lived reversion with relatively smaller magnitude. Secondly, Taiwan exhibits an early reversion that persists for an extended period, accompanied by a substantial magnitude of correction. Thirdly, countries including China, Indonesia, and the Philippines demonstrate a late reversion that spans a considerable duration and exhibits a substantial magnitude of correction. Furthermore, Japan exhibits an oscillating reversion pattern. Notably, Australia, Hong Kong, Singapore, and Thailand consistently display a rightway movement without any significant reversion, indicating a persistent alignment with the prevailing trend.
-
-Conclusion:
-- The Days to Cover (DTC) metric plays a pivotal role in influencing the reversion dynamics. Specifically, stocks with a large DTC exhibit the most pronounced rightway movement, indicating a strong correction towards the prevailing trend. Moreover, the medium-large (7-10) and medium-small (1-2) DTC categories demonstrate the most significant reversions, highlighting the importance of these intermediate DTC ranges in driving corrective price movements.
-
-Conclusion:
-- The magnitude and duration of reversion are influenced by the underlying market capitalization of the stocks. Notably, the below 1 million bucket and the 5-30 million range exhibit the largest and longest reversion, indicating a strong tendency for correction. Conversely, stocks with market capitalizations between 1000 and 2000, as well as those exceeding 10,000, display the most significant rightway movement, suggesting a robust alignment with the prevailing trend.
-
-I hope these polished versions better meet your expectations for a more sophisticated language style. If you have any further requests or need additional assistance, please feel free to ask.
+for region in df['REGION OF LISTING'].unique():
+    df_region = df[df['REGION OF LISTING'] == region]
+    for col in ['T1_level', 'T2_level', 'T5_level', 'T10_level', 'T30_level']:
+        max_ticker = df_region.loc[df_region[col].idxmax(), 'Ticker']
+        min_ticker = df_region.loc[df_region[col].idxmin(), 'Ticker']
+        print(f'{region} - {col} - max: {max_ticker}, min: {min_ticker}')
+        
