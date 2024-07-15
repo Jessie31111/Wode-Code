@@ -1,34 +1,28 @@
-Subject: Proposed Strategies and Considerations for Enhancing Trading Performance
+Subject: Proposed Strategies and Challenges in Data Collection for Trading Analysis
 
 Dear [Recipient's Name],
 
-I hope this email finds you well. I wanted to discuss some ideas and considerations regarding our trading strategies, specifically focusing on optimizing trading performance. I have outlined a few points below for us to consider:
+I hope this email finds you well. I wanted to follow up on our previous discussion regarding enhancing our trading strategies. I have made significant efforts to gather comprehensive data for the three examples we discussed, and I would like to share my findings and challenges with you.
 
-1. Haircut Limitations:
-   It appears that using haircuts is limited in its effectiveness. Since the total buffer does not grow, even if we allocate the extra to the client without any haircut, it would be equivalent to providing the client with the version without a haircut. Therefore, it may be worth exploring alternative approaches that can yield more significant benefits.
+Despite my best efforts, obtaining data on a large scale through web scraping proved to be infeasible. The attached file represents the most well-rounded data I could obtain for the three examples. I reached out to multiple sources, but unfortunately, in Australia, there is no data disclosure system similar to CCASS. This presents a significant challenge in scaling up the data collection process. 
 
-2. Realism of Decreasing Average Volume:
-   It is worth noting that attempting to decrease the average volume may be unrealistic. We cannot easily influence clients to abstain from trading, as it is ultimately their decision. As long as clients continue to trade, it is challenging to reduce average volume since fewer trades directly translate to a decrease in average volume.
+For instance, when more clients are added, manually downloading data by clicking links becomes an arduous and time-consuming task, similar to manually pasting the data. It is only possible to obtain the quarterly reports of a fund through manual downloads. Moreover, without the ability to web scrape, we are unable to automate the process unless the data is available in a downloadable file format from an online source.
 
-3. Focus on Increasing Intraday Holdings:
-   Considering the constraints mentioned above, it might be more feasible to concentrate on increasing intraday holdings. I have outlined a few potential approaches for us to explore:
+One potential solution for scaling up the data collection process is to leverage Bloomberg. By setting the date range, we can guarantee access to data from the latest quarter. However, the availability of data on Bloomberg depends on the level of disclosure by the companies. For example, Paradice has 60+ available data points, L1 Capital has 30+, but Wavestone has no available data due to certain constraints. I have reached out to the Bloomberg engineering team to address this issue, but unfortunately, I do not have a specific timeline for when this feature will be available (attached is the conversation log for reference). Until then, copying and pasting data or manual input remains the most efficient method.
 
-   a. Incentivizing Clients to Buy More:
-      We can explore ways to encourage clients to increase their buying activity. This could involve offering attractive incentives or benefits for larger buying volumes. By motivating clients to buy more, we can potentially increase intraday holdings.
+In general, data disclosure can occur through various channels, such as exchange filings (e.g., ASX for voting power exceeding 5%), 13F filings with the SEC (for institutions controlling over $100 million in assets), or aggregated market information from Bloomberg. To access filing information, we need to visit the respective exchange or SEC website, trace the relevant dates, and manually download the corresponding files. This process is similar to downloading and scraping data from monthly reports and presents challenges when attempting to do it on a large scale.
 
-   b. Restricting Selling Activities:
-      Another approach could involve implementing restrictions on selling activities. For example, we could require clients to maintain a certain portion of their holdings from the start of the day (SOD) until end of day (EOD). However, it is essential to consider the potential impact on client satisfaction and evaluate whether such restrictions align with their trading objectives.
+Considering the potential addition of more clients and assuming their nature is similar to the three trial examples (private-held funds), I propose the following directions:
 
-   c. Introducing Dummy Inventory:
-      This approach involves using dummy inventory to artificially increase buying and selling activities. For instance, we could introduce a dummy buy followed by a sell, resulting in a net increase in trading volume. It is important to note that this approach may not be suitable for low touch desks, and further evaluation is required to assess its viability.
+1. Continue discussing the function update with the Bloomberg team, seeking a resolution to the limitations we have encountered.
 
-Additionally, if the buffer reaches a certain threshold, we could enter a state where clients are temporarily restricted from placing orders within the previous 0 to 9-1 interval. This approach aims to either limit the increase in turnover or break the growth rate of maximum positions and turnover.
+2. Gather the calendar for each client's report date to ensure timely data download and updates, both from Bloomberg and the respective company websites. In this scenario, the information extracted from the PDFs will likely be limited to a few key details that need updating.
 
-In addition to the above discussion points, I have developed a comprehensive simulation tool using Python that can further analyze and evaluate the proposed strategies. The tool incorporates various parameters and factors to provide detailed insights into trading performance.
+However, I must emphasize that these proposals are somewhat hypothetical and based on the trials conducted with the three examples. They assume that all clients have similar disclosure practices as private-held funds.
 
-I believe that implementing these strategies and utilizing the simulation tool can help us optimize our trading performance. I would appreciate your thoughts and feedback on these ideas. Please let me know if you would like to explore them further or if you have any additional suggestions.
+I appreciate your understanding of the challenges we face in data collection and analysis. I remain committed to finding the most efficient and effective ways to enhance our trading strategies. If you have any further suggestions or insights, please do not hesitate to share them.
 
-Thank you for your attention, and I look forward to discussing these strategies in more detail.
+Thank you for your attention, and I look forward to discussing these challenges and potential solutions in more detail.
 
 Best regards,
 [Your Name]
