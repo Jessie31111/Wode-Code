@@ -1,29 +1,21 @@
-# Filter rows where 'Mkt Cap' is less than 500
-filtered_df = df_reversion[df_reversion['Mkt Cap'] < 500]
+import pandas as pd
+import matplotlib.pyplot as plt
 
-# Group by 'COUNTRY OF LISTING' and 'Final Adjustment' columns
-grouped_country = filtered_df.groupby('COUNTRY OF LISTING')
-grouped_final_adjustment = filtered_df.groupby('Final Adjustment')
+# 假设df是你的DataFrame，包含所需的数据
 
+# 1. 计算从列名'-4'开始的所有列的平均值
+start_column = df.columns.get_loc('-4')
+average_values = df.iloc[:, start_column:].mean(axis=1)
 
+# 添加平均值列到DataFrame
+df['Average'] = average_values
 
-# Calculate and print the ratio for each group
-for country, country_group in grouped_country:
-    sum_T1_weighted = country_group['T1_weighted'].sum()
-    sum_Total_Absolute_USD_Flow = country_group['Total Absolute USD Flow'].sum()
-    ratio = sum_T1_weighted / sum_Total_Absolute_USD_Flow
-    print(f"For {country}:")
-    print("Sum of T1_weighted:", sum_T1_weighted)
-    print("Sum of Total Absolute USD Flow:", sum_Total_Absolute_USD_Flow)
-    print("Ratio of Sum of T1_weighted to Sum of Total Absolute USD Flow:", ratio)
-    print()
-
-for adj, adj_group in grouped_final_adjustment:
-    sum_T1_weighted = adj_group['T1_weighted'].sum()
-    sum_Total_Absolute_USD_Flow = adj_group['Total Absolute USD Flow'].sum()
-    ratio = sum_T1_weighted / sum_Total_Absolute_USD_Flow
-    print(f"For Final Adjustment {adj}:")
-    print("Sum of T1_weighted:", sum_T1_weighted)
-    print("Sum of Total Absolute USD Flow:", sum_Total_Absolute_USD_Flow)
-    print("Ratio of Sum of T1_weighted to Sum of Total Absolute USD Flow:", ratio)
-    print()
+# 2. 绘制图表
+plt.figure(figsize=(12, 6))
+plt.plot(df.index, df['Average'], marker='o', color='b', label='Average')
+plt.xlabel('Index')
+plt.ylabel('Average Value')
+plt.title('Average Values from Column -4 Onward')
+plt.legend()
+plt.grid(True)
+plt.show()
